@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template, send_from_directory
 from flask_cors import CORS
+import os
 import requests
 import json
 import os
@@ -743,6 +744,9 @@ if __name__ == '__main__':
     # Initialize database
     init_db()
     
+    # Get port from environment variable (for deployment) or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    
     # Run the server
     print("🎵 NERV9 RADIO Backend Starting...")
     print("📡 Checking radio-browser.info connectivity...")
@@ -750,4 +754,4 @@ if __name__ == '__main__':
     servers = get_radio_browser_servers()
     print(f"✅ Found {len(servers)} radio-browser.info servers")
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
